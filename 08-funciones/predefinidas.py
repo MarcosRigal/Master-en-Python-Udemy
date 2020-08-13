@@ -37,4 +37,16 @@ if len(texto) <= 0: # len devuelve un entero correspondiente al numero de caract
 else: 
   print("La variable tiene contenido: ", len(texto))
 
-# Econtrar 
+# Econtrar caracteres
+frase = "La vida es bella"
+print(frase.find("vida")) #.find devuelve el caracter en el que empieza la palabra que buscamos
+
+# Reemplazar palabras en un string
+
+nueva_frase = frase.replace("vida", "moto")#.replace cambia la primera palabra por la segunda en un string
+print(nueva_frase)
+
+#Mayusculas y minusculas
+print(nombre)
+print(nombre.upper())
+print(nombre.lower())
