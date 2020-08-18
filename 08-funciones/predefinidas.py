@@ -6,7 +6,7 @@ print(type(nombre))
 
 # Detectar el tipado
 
-comprobar = isinstance(nombre, str)
+comprobar = isinstance(nombre, str) #insisance compara si el tipod de dato introducido coincide con el de despues de la coma
 if comprobar: #Si no le ponemos operador de comparacion el if "entiende" que queremos que sea true
   print("Esa variable es un string")
 
