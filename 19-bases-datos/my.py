@@ -11,7 +11,7 @@ database = mysql.connector.connect(
 #¿La conexion ha sido correcta?
 #print(database)
 
-cursor = database.cursor()
+cursor = database.cursor(buffered=True)#Es para que cuando ejecutamos muchas consultas con un cursor no nos falle
 
 cursor.execute("CREATE DATABASE IF NOT EXISTS master_python") #Si no existe la base de datos la crea
 
@@ -38,8 +38,7 @@ cursor.execute("SHOW TABLES")
 for table in cursor:
   print(table)
 
-cursor.execute("INSERT INTO vehiculos VALUES(null, 'Opel', 'Astra', 18000)") Inserta los datos fila a fila
-"""
+cursor.execute("INSERT INTO vehiculos VALUES(null, 'Opel', 'Astra', 18000)") #Inserta los datos fila a fila
 
 coches = [
   ('SEAT', 'IBIZA', 5000),
@@ -49,5 +48,29 @@ coches = [
 ]
 
 cursor.executemany("INSERT INTO vehiculos VALUES(null, %s, %s, %s)", coches)
+
+database.commit()
+"""
+
+cursor.execute("SELECT * FROM vehiculos WHERE precio <= 5000 AND marca = 'SEAT'")#Saca todos los datos de la base de datos
+result = cursor.fetchall() #pasa los datos a una lista donde cada elemento es una fila de la base de datos
+#esta fila a su vez es un vector donde cada posición equivale a una celda
+#Listar
+print("----TODOS LOS COCHES ----")
+for coche in result:
+  print(coche)
+
+cursor.execute("SELECT * FROM vehiculos")
+coche = cursor.fetchone()#Saca el primer elemento de la base de datos
+
+#Borrar
+cursor.execute("DELETE FROM vehiculos WHERE marca = 'Mercedes'") #Borra los vehiculos de la marca Ford
 database.commit()
 
+print(cursor.rowcount, "borrados") #Devuelve el numero de registros que han sido borrados
+
+# Actualizar
+cursor.execute("UPDATE vehiculos SET modelo = 'León' WHERE marca = 'SEAT'")
+database.commit()
+
+print(cursor.rowcount, "Actualizados")
